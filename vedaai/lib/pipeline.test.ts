@@ -1,11 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { ExtractRequestError } from "./extract-client";
-import {
-  PIPELINE_STAGES,
-  runExtractPipeline,
-  type PipelineCache,
-} from "./pipeline";
+import { PIPELINE_STAGES, runExtractPipeline } from "./pipeline";
 import type { Answer, ExtractPageInput, Question } from "./types";
 import type { SelectedUpload } from "./upload-file";
 

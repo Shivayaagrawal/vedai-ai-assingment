@@ -238,7 +238,7 @@ export function parseMapGradesJson(rawText: string): MapGrade[] {
         return null;
       }
       const markerNumber = normalizeMarkerNumber(
-        asOptionalString(item.markerNumber) ?? item.markerNumber,
+        asOptionalString(item.markerNumber) ?? asMarkerNumber(item.markerNumber),
       );
       const studentLabel = asOptionalString(item.studentLabel) ?? "";
       const verdictRaw = asOptionalString(item.verdict);

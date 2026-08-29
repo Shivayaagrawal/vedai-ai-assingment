@@ -1,0 +1,5 @@
+# Annotated bbox overlays — keep the sample-*.png fixtures.
+output*.png
+output*.json
+phase6-*.png
+sample-9page.pdf

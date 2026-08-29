@@ -1,0 +1,77 @@
+[
+  {
+    "id": "continued-b",
+    "displayNumber": "(b)",
+    "text": "Calculate the heat required to raise the temperature of 2 kg of water from 20 degrees Celsius to 80 degrees Celsius. (Specific heat capacity of water = 4200 J/kg-degC)",
+    "page": 2,
+    "subPart": "b",
+    "maxMarks": 3
+  },
+  {
+    "id": "section-b-biology-chemistry-1",
+    "displayNumber": "1",
+    "text": "Name the powerhouse of the cell.",
+    "page": 2,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 1
+  },
+  {
+    "id": "section-b-biology-chemistry-2",
+    "displayNumber": "2",
+    "text": "What is photosynthesis? Write the balanced chemical equation for photosynthesis.",
+    "page": 2,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 4
+  },
+  {
+    "id": "section-b-biology-chemistry-9",
+    "displayNumber": "9",
+    "text": "List two differences between plant cells and animal cells.",
+    "page": 2,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 4
+  },
+  {
+    "id": "section-b-biology-chemistry-10",
+    "displayNumber": "10",
+    "text": "Balance the following chemical equation: Fe + O2 -> Fe2O3",
+    "page": 2,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 3
+  },
+  {
+    "id": "section-b-biology-chemistry-11-a-i",
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. What is the pH of a neutral solution?",
+    "page": 2,
+    "subPart": "a(i)",
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 1
+  },
+  {
+    "id": "section-b-biology-chemistry-11-a-ii",
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. Name one acid found in the human stomach.",
+    "page": 2,
+    "subPart": "a(ii)",
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 1
+  },
+  {
+    "id": "section-b-biology-chemistry-11-b",
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. Explain why sodium chloride conducts electricity in its molten state but not in its solid state.",
+    "page": 2,
+    "subPart": "b",
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 3
+  },
+  {
+    "id": "section-b-biology-chemistry-12",
+    "displayNumber": "12",
+    "text": "Draw a labelled diagram of the human digestive system.",
+    "page": 2,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "maxMarks": 5
+  }
+]

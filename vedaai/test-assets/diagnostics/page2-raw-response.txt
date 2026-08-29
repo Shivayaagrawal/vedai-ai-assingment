@@ -1,0 +1,74 @@
+[
+  {
+    "displayNumber": "null",
+    "text": "Calculate the heat required to raise the temperature of 2 kg of water from 20 degrees Celsius to 80 degrees Celsius. (Specific heat capacity of water = 4200 J/kg-degC)",
+    "isAlternativeOf": null,
+    "maxMarks": 3,
+    "section": null,
+    "subPart": "b"
+  },
+  {
+    "displayNumber": "1",
+    "text": "Name the powerhouse of the cell.",
+    "isAlternativeOf": null,
+    "maxMarks": 1,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": null
+  },
+  {
+    "displayNumber": "2",
+    "text": "What is photosynthesis? Write the balanced chemical equation for photosynthesis.",
+    "isAlternativeOf": null,
+    "maxMarks": 4,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": null
+  },
+  {
+    "displayNumber": "9",
+    "text": "List two differences between plant cells and animal cells.",
+    "isAlternativeOf": null,
+    "maxMarks": 4,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": null
+  },
+  {
+    "displayNumber": "10",
+    "text": "Balance the following chemical equation: Fe + O2 -> Fe2O3",
+    "isAlternativeOf": null,
+    "maxMarks": 3,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": null
+  },
+  {
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. What is the pH of a neutral solution?",
+    "isAlternativeOf": null,
+    "maxMarks": 1,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": "a(i)"
+  },
+  {
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. Name one acid found in the human stomach.",
+    "isAlternativeOf": null,
+    "maxMarks": 1,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": "a(ii)"
+  },
+  {
+    "displayNumber": "11",
+    "text": "Acids, bases and ionic conduction. Explain why sodium chloride conducts electricity in its molten state but not in its solid state.",
+    "isAlternativeOf": null,
+    "maxMarks": 3,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": "b"
+  },
+  {
+    "displayNumber": "12",
+    "text": "Draw a labelled diagram of the human digestive system.",
+    "isAlternativeOf": null,
+    "maxMarks": 5,
+    "section": "SECTION B — BIOLOGY & CHEMISTRY",
+    "subPart": null
+  }
+]

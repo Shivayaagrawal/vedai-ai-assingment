@@ -1,0 +1,53 @@
+{
+  "name": "vedaai",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test:bbox": "npx --yes tsx scripts/test-bbox.ts",
+    "test:parse": "npx --yes tsx scripts/test-parse.ts",
+    "test:phase1": "npx --yes tsx scripts/test-phase1.ts",
+    "test:questions": "npx --yes tsx scripts/test-questions.ts",
+    "test:extract-empty": "npx --yes tsx --test lib/extract-empty.test.ts",
+    "test:extract-batch": "npx --yes tsx scripts/test-extract-batch.ts",
+    "test:phase3": "npx --yes tsx scripts/test-phase3.ts",
+    "test:matching": "npx --yes tsx --test lib/matching.test.ts",
+    "test:grading": "npx --yes tsx --test lib/grading.test.ts",
+    "test:upload": "npx --yes tsx --test lib/upload-file.test.ts",
+    "measure:payload": "npx --yes tsx scripts/measure-payload.ts",
+    "test:pipeline": "npx --yes tsx --test lib/pipeline.test.ts",
+    "test:phase5": "npx --yes tsx scripts/test-phase5.ts",
+    "test:highlight": "npx --yes tsx --test lib/highlight-geometry.test.ts",
+    "test:question-ui": "npx --yes tsx --test lib/question-ui.test.ts",
+    "test:question-split": "npx --yes tsx --test lib/extract-questions-split.test.ts",
+    "test:continuation": "npx --yes tsx --test lib/continuation-stitching.test.ts",
+    "test:grade-spot-check": "npx --yes tsx scripts/grade-spot-check.ts",
+    "test:pin2-split-check": "npx --yes tsx scripts/check-pin2-split.ts",
+    "test:map-questions": "npx --yes tsx scripts/test-map-questions.ts",
+    "test:map-unit": "npx --yes tsx --test lib/map-questions.test.ts",
+    "test:live-batch": "npx --yes tsx scripts/live-quota-batch.ts",
+    "test:gemini-retry": "npx --yes tsx --test lib/gemini-retry.test.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@napi-rs/canvas": "^1.0.8",
+    "lucide-react": "^1.37.0",
+    "next": "14.2.35",
+    "pdfjs-dist": "^6.2.108",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

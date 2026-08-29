@@ -1,0 +1,199 @@
+{
+  "totalMapped": 17,
+  "excludedForReview": [],
+  "skipped": [
+    {
+      "questionId": "section-a-physics-2",
+      "reason": "unanswered — no mapped answer to grade"
+    },
+    {
+      "questionId": "section-a-5",
+      "reason": "not-attempted-choice — nothing to grade"
+    },
+    {
+      "questionId": "section-a-6",
+      "reason": "not-attempted-choice — nothing to grade"
+    },
+    {
+      "questionId": "section-b-biology-chemistry-11-a-i",
+      "reason": "unanswered — no mapped answer to grade"
+    },
+    {
+      "questionId": "section-b-biology-chemistry-11-a-ii",
+      "reason": "unanswered — no mapped answer to grade"
+    }
+  ],
+  "gradedCount": 12,
+  "pairs": [
+    {
+      "questionId": "section-a-physics-1",
+      "questionText": "Define the term 'inertia'.",
+      "maxMarks": 2,
+      "answerText": "Inertia is the tendency of a body to resist any change in its state of rest or of uniform motion.\n\n6 CO2 + 6 H2O + light energy -> C6H12O6 + 6 O2 (photosynthesis)",
+      "matchConfidence": 0.5
+    },
+    {
+      "questionId": "section-a-physics-3",
+      "questionText": "Solve for x: 2x^2 - 5x + 3 = 0. Show all steps of your working.",
+      "maxMarks": 5,
+      "answerText": "2x^2 - 5x + 3 = 0\nx = [5 +/- sqrt(25 - 24)] / 4 = (5 +/- 1)/4\nso x = 1.5 or x = 1",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-a-physics-4",
+      "questionText": "The diagram below shows a simple pendulum released from rest at point R and allowed to swing through its lowest point P. Label points P, Q and R, and explain the energy transformation of the bob as it moves from R to P.",
+      "maxMarks": 5,
+      "answerText": "Q4\nP = lowest point (max speed, max KE, min PE). Q and R are the extremepoints wherethe bob momentarily stops\n(max PE, KE = 0). As the bobmoves from R to P, PE convertsinto KE.\n\nQ\nP (max KE, min PE)",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-a-7",
+      "questionText": "Why does ice float on water? Explain in terms of density.",
+      "maxMarks": null,
+      "answerText": "Ice floats on water because ice is less dense than liquid water - the hexagonal crystal structure formed on freezing takes up more space than the liquid.",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-a-8-a",
+      "questionText": "Specific heat and heating of water. Define specific heat capacity.",
+      "maxMarks": 2,
+      "answerText": "Q8(a)\nSpecific heat capacity is the heat needed to raise the temperature of 1 kg of a\nsubstance by 1 degree Celsius.",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-a-8-b",
+      "questionText": "Calculate the heat required to raise the temperature of 2 kg of water from 20 degrees Celsius to 80 degrees Celsius. (Specific heat capacity of water = 4200 J/kg-degC)",
+      "maxMarks": 3,
+      "answerText": "Q8(b)\nQ = m c (delta)T = 2 x 4200 x 60 = 504000 J",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-b-biology-chemistry-1",
+      "questionText": "Name the powerhouse of the cell.",
+      "maxMarks": 1,
+      "answerText": "Mitochondria is the powerhouse of the cell.",
+      "matchConfidence": 0.5
+    },
+    {
+      "questionId": "section-b-biology-chemistry-2",
+      "questionText": "What is photosynthesis? Write the balanced chemical equation for photosynthesis.",
+      "maxMarks": 4,
+      "answerText": "The SI unit of force is the newton (N). One newton is the force required to give a mass of 1kg an acceleration of 1 m/s^2.",
+      "matchConfidence": 0.5
+    },
+    {
+      "questionId": "section-b-biology-chemistry-9",
+      "questionText": "List two differences between plant cells and animal cells.",
+      "maxMarks": 4,
+      "answerText": "Q9\n1. Plant cells have a cellwall, animal cells do not.\n2. Plant cells have chloroplasts and a large vacuole, animal cells usually donot.",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-b-biology-chemistry-10",
+      "questionText": "Balance the following chemical equation: Fe + O2 -> Fe2O3",
+      "maxMarks": 3,
+      "answerText": "4 Fe + 3 O2 -> 2 Fe2O3(balanced)",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-b-biology-chemistry-11-b",
+      "questionText": "Explain why sodium chloride conducts electricity in its molten state but not in its solid state.",
+      "maxMarks": 3,
+      "answerText": "Q11(b)\nIn molten Nacl the ions are free to move and carry charge but in solid Nacl the ions are fixed in the lattice\nandcannot move so it cannot conduct electricity.",
+      "matchConfidence": 0.9
+    },
+    {
+      "questionId": "section-b-biology-chemistry-12",
+      "questionText": "Draw a labelled diagram of the human digestive system.",
+      "maxMarks": 5,
+      "answerText": "Q12\n(diagram - human digestive system)\nmouth\noesophagus\nstomach small intestine\nlarge intestine",
+      "matchConfidence": 0.9
+    }
+  ],
+  "grades": [
+    {
+      "questionId": "section-a-physics-1",
+      "score": 2,
+      "maxScore": 2,
+      "verdict": "correct",
+      "feedback": "The text provided defines inertia as the tendency of a body to resist any change in its state of rest or of uniform motion, which is correct. It also contains an unrelated chemical equation. Because this is a low-confidence match, please verify if this answer is paired with the correct question."
+    },
+    {
+      "questionId": "section-a-physics-3",
+      "score": 5,
+      "maxScore": 5,
+      "verdict": "correct",
+      "feedback": "The student correctly solved the quadratic equation using the quadratic formula, showing all steps of the working and obtaining the correct values of x = 1.5 and x = 1."
+    },
+    {
+      "questionId": "section-a-physics-4",
+      "score": 5,
+      "maxScore": 5,
+      "verdict": "correct",
+      "feedback": "The student correctly identified the points (P as the lowest point, Q and R as the extreme points) and accurately explained the energy transformation from potential energy to kinetic energy as the bob moves from R to P."
+    },
+    {
+      "questionId": "section-a-7",
+      "score": 10,
+      "maxScore": 10,
+      "verdict": "correct",
+      "feedback": "The student correctly explained that ice floats because it is less dense than liquid water, attributing this to the hexagonal crystal structure formed upon freezing which takes up more space."
+    },
+    {
+      "questionId": "section-a-8-a",
+      "score": 2,
+      "maxScore": 2,
+      "verdict": "correct",
+      "feedback": "The student provided a correct definition of specific heat capacity, specifying the heat needed to raise the temperature of 1 kg of a substance by 1 degree Celsius."
+    },
+    {
+      "questionId": "section-a-8-b",
+      "score": 3,
+      "maxScore": 3,
+      "verdict": "correct",
+      "feedback": "The student correctly calculated the heat required using the formula Q = mcΔT, showing the correct substitution of values and obtaining the correct final answer of 504,000 J."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-1",
+      "score": 1,
+      "maxScore": 1,
+      "verdict": "correct",
+      "feedback": "The text provided correctly identifies the mitochondria as the powerhouse of the cell. Because this is a low-confidence match, please verify if this answer is paired with the correct question."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-2",
+      "score": 0,
+      "maxScore": 4,
+      "verdict": "incorrect",
+      "feedback": "The text provided defines the SI unit of force (the newton) and does not address photosynthesis or its chemical equation. Because this is a low-confidence match, please verify if this answer is paired with the correct question."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-9",
+      "score": 4,
+      "maxScore": 4,
+      "verdict": "correct",
+      "feedback": "The student correctly identified two key differences: plant cells have a cell wall and chloroplasts/large vacuoles, whereas animal cells do not."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-10",
+      "score": 3,
+      "maxScore": 3,
+      "verdict": "correct",
+      "feedback": "The chemical equation is correctly balanced."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-11-b",
+      "score": 3,
+      "maxScore": 3,
+      "verdict": "correct",
+      "feedback": "The student correctly explained that sodium chloride conducts electricity when molten because its ions are free to move and carry charge, whereas in the solid state, the ions are fixed in a lattice structure."
+    },
+    {
+      "questionId": "section-b-biology-chemistry-12",
+      "score": 2,
+      "maxScore": 5,
+      "verdict": "partially-correct",
+      "feedback": "The student provided correct labels for the digestive system (mouth, oesophagus, stomach, small and large intestines), but the required diagram itself is missing or could not be evaluated from the text."
+    }
+  ]
+}

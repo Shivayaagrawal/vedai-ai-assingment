@@ -1,0 +1,28 @@
+{
+  "dumpPath": "/Users/shivanyaagrawal/veda assingment /vedaai/test-assets/output-real-pipeline.json",
+  "unlabeledCount": 0,
+  "labeledQ1StillMerged": true,
+  "splitLooksApplied": false,
+  "unlabeledPhotosynthesis": null,
+  "positionalFallbackPairs": [],
+  "unlabeledPhotosynthesisBoundTo": null,
+  "simulatedSplitBoundTo": {
+    "questionId": "section-a-physics-4",
+    "questionLabel": "4",
+    "questionText": "The diagram below shows a simple pendulum released from rest at point R and allowed to swing through its lowest point P. Label points P, Q and R, and explain the energy transformation of the bob as it moves from R to P.",
+    "matchConfidence": 0.3,
+    "status": "low-confidence"
+  },
+  "simulatedSplitWithPrintedB2BoundTo": {
+    "questionId": "dry-run-section-b-2",
+    "questionLabel": "2",
+    "questionText": "What is photosynthesis? Write the balanced chemical equation for photosynthesis.",
+    "matchConfidence": 0.3,
+    "status": "low-confidence"
+  },
+  "notes": [
+    "Q1 is still one labeled box containing inertia AND the photosynthesis equation — the prompt split did not fire on this dump.",
+    "Simulated split on this dump bound unlabeled equation to 4 (section-a-physics-4).",
+    "With printed B2/Q10 present, simulated split bound to 2 via topic overlap."
+  ]
+}

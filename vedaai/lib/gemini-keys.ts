@@ -1,6 +1,6 @@
 /**
  * GEMINI_API_KEY plus optional GEMINI_API_KEY_2..4 (or comma-separated
- * GEMINI_API_KEYS). Vercel aliases: vedaa_0 / vedaa0, then vedaa_1 / vedaa1, …
+ * GEMINI_API_KEYS). Vercel Production aliases: veda_0, veda_1, veda_2, veda_3.
  * On 429 the caller should rotate to the next key.
  */
 export function listGeminiApiKeys(
@@ -11,16 +11,10 @@ export function listGeminiApiKeys(
     env.GEMINI_API_KEY_2,
     env.GEMINI_API_KEY_3,
     env.GEMINI_API_KEY_4,
-    env.vedaa_0,
-    env.vedaa0,
-    env.vedaa_1,
-    env.vedaa1,
-    env.vedaa_2,
-    env.vedaa2,
-    env.vedaa_3,
-    env.vedaa3,
-    env.vedaa_4,
-    env.vedaa4,
+    env.veda_0,
+    env.veda_1,
+    env.veda_2,
+    env.veda_3,
   ];
   const fromList = (env.GEMINI_API_KEYS ?? "").split(/[,;\n]+/);
   const seen = new Set<string>();

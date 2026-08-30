@@ -26,14 +26,15 @@ describe("listGeminiApiKeys", () => {
     );
   });
 
-  it("reads Vercel vedaa_0 / vedaa1 aliases", () => {
+  it("reads Vercel veda_0..veda_3 aliases", () => {
     assert.deepEqual(
       listGeminiApiKeys({
-        vedaa_0: " first ",
-        vedaa1: "second",
-        vedaa_2: "third",
+        veda_0: " first ",
+        veda_1: "second",
+        veda_2: "third",
+        veda_3: "fourth",
       }),
-      ["first", "second", "third"],
+      ["first", "second", "third", "fourth"],
     );
   });
 

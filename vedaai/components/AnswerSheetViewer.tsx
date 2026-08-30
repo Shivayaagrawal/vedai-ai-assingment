@@ -9,6 +9,7 @@ import {
 import {
   otherRegionPages,
   pixelBoxesForSheetPage,
+  type HighlightTone,
   type PixelBox,
   type SheetHighlight,
 } from "../lib/highlight-geometry";

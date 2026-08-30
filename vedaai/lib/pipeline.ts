@@ -22,6 +22,11 @@ export const PIPELINE_STAGES = {
 
 export type PipelineStage = (typeof PIPELINE_STAGES)[keyof typeof PIPELINE_STAGES];
 
+export type PipelineProgress = {
+  stage: PipelineStage;
+  message: string;
+};
+
 export function pipelineHeading(stage: PipelineStage): string {
   if (stage === PIPELINE_STAGES.reading) return "Scanning...";
   if (stage === PIPELINE_STAGES.mapping) return "Mapping...";

@@ -7,6 +7,7 @@ import {
   firstRegionPage,
   highlightTagForQuestion,
   highlightTagForUnmatched,
+  type SheetHighlight,
 } from "../lib/highlight-geometry";
 import type { MappingSession } from "../lib/pipeline";
 import { highlightToneForGrade } from "../lib/question-ui";
@@ -117,6 +118,34 @@ export function useResultsInteraction(
     return null;
   })();
 
+  const sheetHighlights: SheetHighlight[] = useMemo(() => {
+    const mapped: SheetHighlight[] = mapping.results.flatMap((result) => {
+      if (!result.answer) return [];
+      return [
+        {
+          answer: result.answer,
+          tag: highlightTagForQuestion(result.question),
+          tone: highlightToneForGrade(displayGradesById[result.question.id]),
+          emphasized: result.question.id === selectedQuestionId,
+        },
+      ];
+    });
+    const unmatched: SheetHighlight[] = mapping.unmatchedAnswers
+      .filter((item) => item.answer.id === selectedUnmatchedId)
+      .map((item) => ({
+        answer: item.answer,
+        tag: highlightTagForUnmatched(item.answer),
+        emphasized: true,
+      }));
+    return [...mapped, ...unmatched];
+  }, [
+    displayGradesById,
+    mapping.results,
+    mapping.unmatchedAnswers,
+    selectedQuestionId,
+    selectedUnmatchedId,
+  ]);
+
   const jumpToAnswerPage = useCallback(
     (pageNumber: number | null) => {
       if (pageNumber === null) return;
@@ -214,6 +243,7 @@ export function useResultsInteraction(
     grading,
     gradeError,
     viewerSelection,
+    sheetHighlights,
     selectQuestion,
     toggleExpand,
     expandAll,

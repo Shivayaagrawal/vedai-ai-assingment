@@ -43,8 +43,11 @@ async function main() {
   await clickQuestion(page, "Name the organelle");
   await page.waitForTimeout(200);
   const q2 = await highlightTags(page);
-  if (q2.length !== 1 || q2[0] !== "Q2") {
-    failures.push(`Q2 should replace prior highlight, got ${JSON.stringify(q2)}`);
+  if (!q2.includes("Q2") || !q2.includes("Q1")) {
+    failures.push(`page should keep all grade boxes, got ${JSON.stringify(q2)}`);
+  }
+  if ((await page.locator("[data-highlight-emphasized='true']").count()) < 1) {
+    failures.push("selected question should emphasize its answer box");
   }
   await page.screenshot({ path: resolve(OUT, "phase8-q2.png") });
 
@@ -53,8 +56,8 @@ async function main() {
   if ((await page.getByText("AI Feedback").count()) > 0) {
     failures.push("clicking a question should not expand the card");
   }
-  if ((await highlightTags(page)).length !== 0) {
-    failures.push("unanswered question left a stale highlight");
+  if (!(await highlightTags(page)).includes("Q1")) {
+    failures.push("unanswered question should still show other grade boxes");
   }
 
   await clickQuestion(page, "An answer that spans two pages.");
@@ -73,13 +76,13 @@ async function main() {
 
   await clickQuestion(page, "State the function of mitochondria.");
   await page.waitForTimeout(200);
-  if ((await highlightTags(page)).join() !== "Q11a") {
-    failures.push("11a should highlight Q11a only");
+  if (!(await highlightTags(page)).includes("Q11a")) {
+    failures.push("11a should highlight Q11a");
   }
   await clickQuestion(page, "State the function of the nucleus.");
   await page.waitForTimeout(200);
-  if ((await highlightTags(page)).join() !== "Q11b") {
-    failures.push("11b should highlight Q11b only");
+  if (!(await highlightTags(page)).includes("Q11b")) {
+    failures.push("11b should highlight Q11b");
   }
 
   await page.getByRole("button", { name: "Expand All" }).click();
@@ -95,13 +98,13 @@ async function main() {
 
   await page.getByRole("button", { name: /Unmatched answer \(unlabeled\)/ }).click();
   await page.waitForTimeout(200);
-  if ((await highlightTags(page)).join() !== "Q?") {
+  if (!(await highlightTags(page)).includes("Q?")) {
     failures.push("unlabeled unmatched should highlight as Q? without printing null");
   }
 
   await page.getByRole("button", { name: /detected as Q99/ }).click();
   await page.waitForTimeout(200);
-  if ((await highlightTags(page)).join() !== "Q99") {
+  if (!(await highlightTags(page)).includes("Q99")) {
     failures.push("Q99 unmatched should highlight Q99");
   }
 

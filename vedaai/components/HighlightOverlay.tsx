@@ -26,9 +26,12 @@ export function HighlightOverlay({ boxes }: HighlightOverlayProps) {
         return (
           <div
             key={`${box.tag}-${index}-${box.left}-${box.top}`}
-            className={`pointer-events-none absolute border-2 ${BOX_TONE_CLASS[tone]}`}
+            className={`pointer-events-none absolute border-2 ${BOX_TONE_CLASS[tone]} ${
+              box.emphasized ? "z-20 ring-2 ring-highlight-secondary" : "z-10"
+            }`}
             data-highlight-tag={box.tag}
             data-highlight-tone={tone}
+            data-highlight-emphasized={box.emphasized ? "true" : undefined}
             style={{
               left: box.left,
               top: box.top,

@@ -9,6 +9,14 @@ export type PixelBox = {
   height: number;
   tag: string;
   tone?: HighlightTone;
+  emphasized?: boolean;
+};
+
+export type SheetHighlight = {
+  answer: Answer;
+  tag: string;
+  tone?: HighlightTone;
+  emphasized?: boolean;
 };
 
 export function scaleNormalizedBox(
@@ -85,6 +93,7 @@ export function pixelBoxesForPage(
   displayedWidth: number,
   displayedHeight: number,
   tone?: HighlightTone,
+  emphasized?: boolean,
 ): PixelBox[] {
   return regionsOnPage(regions, pageNumber).map((region) => ({
     ...scaleNormalizedBox(
@@ -96,5 +105,29 @@ export function pixelBoxesForPage(
     ),
     tag,
     ...(tone ? { tone } : {}),
+    ...(emphasized ? { emphasized: true } : {}),
   }));
+}
+
+export function pixelBoxesForSheetPage(
+  highlights: SheetHighlight[],
+  pageNumber: number,
+  naturalWidth: number,
+  naturalHeight: number,
+  displayedWidth: number,
+  displayedHeight: number,
+): PixelBox[] {
+  return highlights.flatMap((item) =>
+    pixelBoxesForPage(
+      item.answer.regions,
+      pageNumber,
+      item.tag,
+      naturalWidth,
+      naturalHeight,
+      displayedWidth,
+      displayedHeight,
+      item.tone,
+      item.emphasized,
+    ),
+  );
 }

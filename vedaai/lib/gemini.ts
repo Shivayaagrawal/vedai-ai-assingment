@@ -13,6 +13,7 @@ import {
   isGeminiRateLimitError,
   withRateLimitRetry,
 } from "./gemini-retry";
+import { questionIdFromParts } from "./question-id";
 import type {
   Answer,
   AnswerRegion,
@@ -429,25 +430,7 @@ export function parseAnswersJson(
     .filter((answer): answer is Answer => answer !== null);
 }
 
-function slugifyPart(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-export function questionIdFromParts(
-  section: string | undefined,
-  displayNumber: string,
-  subPart: string | undefined,
-): string {
-  const slug = [section, displayNumber, subPart]
-    .filter((part): part is string => Boolean(part && part.trim()))
-    .map(slugifyPart)
-    .filter(Boolean)
-    .join("-");
-  return slug || slugifyPart(displayNumber) || "question";
-}
+export { questionIdFromParts } from "./question-id";
 
 function asOptionalMarks(value: unknown): number | undefined {
   if (value === null || value === undefined) return undefined;

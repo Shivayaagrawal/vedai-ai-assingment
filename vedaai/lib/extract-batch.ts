@@ -5,6 +5,7 @@ import {
 } from "./gemini";
 import { extractQuestionsFromFullPage } from "./extract-questions-split";
 import { MAX_EXTRACT_PAGES, pageCountLimitMessage } from "./upload-file";
+import { assignAnswerIds } from "./answer-ids";
 import {
   stitchAnswerContinuations,
   stitchQuestionContinuations,
@@ -225,15 +226,7 @@ function byPageThenOrder<T extends { page: number }>(left: T, right: T): number 
   return left.page - right.page;
 }
 
-export function assignAnswerIds(answers: Answer[]): Answer[] {
-  const counts = new Map<number, number>();
-  return answers.map((answer) => {
-    const page = answer.regions[0]?.page ?? 0;
-    const next = (counts.get(page) ?? 0) + 1;
-    counts.set(page, next);
-    return { ...answer, id: `page${page}-answer${next}` };
-  });
-}
+export { assignAnswerIds };
 
 export async function extractQuestionsBatch(
   pages: ExtractPageInput[],

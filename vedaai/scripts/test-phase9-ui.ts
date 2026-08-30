@@ -67,8 +67,9 @@ async function main() {
   await page.getByText("This question was not answered").waitFor();
   await page.getByRole("tab", { name: "Answer Sheet" }).click();
   await page.getByText("No answer found for this question").waitFor();
-  if ((await visibleHighlightTags(page)).length !== 0) {
-    failures.push("Q3 round-trip left a highlight");
+  const unansweredTags = await visibleHighlightTags(page);
+  if (unansweredTags.includes("Q3")) {
+    failures.push("Q3 unanswered should not draw a Q3 highlight");
   }
 
   await page.getByRole("tab", { name: "Questions" }).click();

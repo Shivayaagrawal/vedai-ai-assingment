@@ -1,3 +1,10 @@
+import {
+  assignAnswerIds,
+} from "./answer-ids";
+import {
+  stitchAnswerContinuations,
+  stitchQuestionContinuations,
+} from "./continuation-stitching";
 import type { Answer, ExtractPageInput, ExtractWarning, Question } from "./types";
 
 export const RATE_LIMIT_MESSAGE =
@@ -56,11 +63,8 @@ function parseWarnings(value: unknown): ExtractWarning[] {
 }
 
 /**
- * Extract sends every page as JPEG/PNG base64 in one JSON body.
- * Vercel serverless request bodies are typically capped around 4.5MB.
- * Client + API both enforce MAX_EXTRACT_PAGES (see lib/upload-file.ts) so a
- * multi-page paper cannot silently 413 on deploy while working locally.
- * Rate limits (429) are separate from that payload ceiling.
+ * Extract sends each page as JPEG/PNG base64 so the UI can report
+ * "page N of M" and each Vercel body stays under the ~4.5MB cap.
  */
 async function postExtract(
   path: "/api/extract-questions" | "/api/extract-answers",
@@ -98,19 +102,46 @@ async function postExtract(
   return json;
 }
 
+export type PageProgressFn = (current: number, total: number) => void;
+
 export async function extractQuestionsRequest(
   pages: ExtractPageInput[],
+  onPage?: PageProgressFn,
 ): Promise<QuestionsExtract> {
-  const json = await postExtract("/api/extract-questions", pages, "questions");
-  if (!isRecord(json) || !Array.isArray(json.questions)) {
-    throw new ExtractRequestError(
-      "questions",
-      false,
-      "Question extraction returned an unexpected payload.",
-    );
+  const collected: Question[] = [];
+  const warnings: ExtractWarning[] = [];
+
+  for (const [index, page] of pages.entries()) {
+    onPage?.(index + 1, pages.length);
+    try {
+      const json = await postExtract(
+        "/api/extract-questions",
+        [page],
+        "questions",
+      );
+      if (!isRecord(json) || !Array.isArray(json.questions)) {
+        throw new ExtractRequestError(
+          "questions",
+          false,
+          "Question extraction returned an unexpected payload.",
+        );
+      }
+      collected.push(...(json.questions as Question[]));
+      warnings.push(...parseWarnings(json.warnings));
+    } catch (error) {
+      if (error instanceof ExtractRequestError && error.rateLimited) {
+        throw error;
+      }
+      const message =
+        error instanceof Error ? error.message : "Question extraction failed.";
+      warnings.push({
+        page: page.pageNumber,
+        message: `Page ${page.pageNumber} failed: ${message}`,
+      });
+    }
   }
-  const questions = json.questions as Question[];
-  const warnings = parseWarnings(json.warnings);
+
+  const questions = stitchQuestionContinuations(collected);
   if (
     questions.length === 0 &&
     warnings.length > 0 &&
@@ -123,17 +154,38 @@ export async function extractQuestionsRequest(
 
 export async function extractAnswersRequest(
   pages: ExtractPageInput[],
+  onPage?: PageProgressFn,
 ): Promise<AnswersExtract> {
-  const json = await postExtract("/api/extract-answers", pages, "answers");
-  if (!isRecord(json) || !Array.isArray(json.answers)) {
-    throw new ExtractRequestError(
-      "answers",
-      false,
-      "Answer extraction returned an unexpected payload.",
-    );
+  const collected: Answer[] = [];
+  const warnings: ExtractWarning[] = [];
+
+  for (const [index, page] of pages.entries()) {
+    onPage?.(index + 1, pages.length);
+    try {
+      const json = await postExtract("/api/extract-answers", [page], "answers");
+      if (!isRecord(json) || !Array.isArray(json.answers)) {
+        throw new ExtractRequestError(
+          "answers",
+          false,
+          "Answer extraction returned an unexpected payload.",
+        );
+      }
+      collected.push(...(json.answers as Answer[]));
+      warnings.push(...parseWarnings(json.warnings));
+    } catch (error) {
+      if (error instanceof ExtractRequestError && error.rateLimited) {
+        throw error;
+      }
+      const message =
+        error instanceof Error ? error.message : "Answer extraction failed.";
+      warnings.push({
+        page: page.pageNumber,
+        message: `Page ${page.pageNumber} failed: ${message}`,
+      });
+    }
   }
-  const answers = json.answers as Answer[];
-  const warnings = parseWarnings(json.warnings);
+
+  const answers = assignAnswerIds(stitchAnswerContinuations(collected));
   if (
     answers.length === 0 &&
     warnings.length > 0 &&

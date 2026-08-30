@@ -5,6 +5,7 @@ import {
   RATE_LIMIT_MESSAGE,
   type AnswersExtract,
   type QuestionsExtract,
+  type PageProgressFn,
 } from "./extract-client";
 import { mapAnswersToQuestions, type MappingOutput } from "./matching";
 import { pagesFromUpload } from "./pdf-to-images";
@@ -21,10 +22,11 @@ export const PIPELINE_STAGES = {
 
 export type PipelineStage = (typeof PIPELINE_STAGES)[keyof typeof PIPELINE_STAGES];
 
-export type PipelineProgress = {
-  stage: PipelineStage;
-  message: string;
-};
+export function pipelineHeading(stage: PipelineStage): string {
+  if (stage === PIPELINE_STAGES.reading) return "Scanning...";
+  if (stage === PIPELINE_STAGES.mapping) return "Mapping...";
+  return "Extracting...";
+}
 
 function pagesLabel(count: number): string {
   return count === 1 ? "1 page" : `${count} pages`;
@@ -68,8 +70,14 @@ export type ConvertUploadFn = (
 
 export type PipelineDeps = {
   convert?: ConvertUploadFn;
-  extractQuestions?: typeof extractQuestionsRequest;
-  extractAnswers?: typeof extractAnswersRequest;
+  extractQuestions?: (
+    pages: ExtractPageInput[] | undefined,
+    onPage?: PageProgressFn,
+  ) => Promise<QuestionsExtract>;
+  extractAnswers?: (
+    pages: ExtractPageInput[] | undefined,
+    onPage?: PageProgressFn,
+  ) => Promise<AnswersExtract>;
 };
 
 export async function runExtractPipeline(
@@ -134,46 +142,55 @@ export async function runExtractPipeline(
     if (needQuestions || needAnswers) {
       const questionPageCount = next.questionPages?.length ?? 0;
       const answerPageCount = next.answerPages?.length ?? 0;
+      let questionPageProgress = "";
+      let answerPageProgress = "";
 
-      if (needQuestions && needAnswers) {
-        report(
-          PIPELINE_STAGES.extractingBoth,
-          `Detecting questions on ${pagesLabel(questionPageCount)} and answers on ${pagesLabel(answerPageCount)}…`,
-        );
-      } else if (needQuestions) {
-        report(
-          PIPELINE_STAGES.extractingQuestions,
-          `Detecting questions on ${pagesLabel(questionPageCount)}…`,
-        );
-      } else {
-        report(
-          PIPELINE_STAGES.extractingAnswers,
-          `Detecting handwritten answers on ${pagesLabel(answerPageCount)}…`,
-        );
-      }
+      const publishExtract = () => {
+        const lines = [questionPageProgress, answerPageProgress].filter(Boolean);
+        if (needQuestions && needAnswers) {
+          report(
+            PIPELINE_STAGES.extractingBoth,
+            lines.length > 0
+              ? lines.join(" ")
+              : `Extracting questions on ${pagesLabel(questionPageCount)} and answers on ${pagesLabel(answerPageCount)}…`,
+          );
+        } else if (needQuestions) {
+          report(
+            PIPELINE_STAGES.extractingQuestions,
+            questionPageProgress ||
+              `Extracting questions on ${pagesLabel(questionPageCount)}…`,
+          );
+        } else {
+          report(
+            PIPELINE_STAGES.extractingAnswers,
+            answerPageProgress ||
+              `Extracting handwritten answers on ${pagesLabel(answerPageCount)}…`,
+          );
+        }
+      };
+
+      publishExtract();
 
       const questionPromise = needQuestions
-        ? extractQuestions(next.questionPages).then((value) => {
+        ? extractQuestions(next.questionPages, (current, total) => {
+            questionPageProgress = `Extracting questions — page ${current} of ${total}.`;
+            publishExtract();
+          }).then((value) => {
             next.questions = value;
-            if (needAnswers && next.answers === undefined) {
-              report(
-                PIPELINE_STAGES.extractingAnswers,
-                `Detected ${value.questions.length} questions. Still detecting answers on ${pagesLabel(answerPageCount)}…`,
-              );
-            }
+            questionPageProgress = `Extracted ${countLabel(value.questions.length, "question", "questions")}.`;
+            publishExtract();
             return value;
           })
         : Promise.resolve(next.questions);
 
       const answerPromise = needAnswers
-        ? extractAnswers(next.answerPages).then((value) => {
+        ? extractAnswers(next.answerPages, (current, total) => {
+            answerPageProgress = `Extracting answers — page ${current} of ${total}.`;
+            publishExtract();
+          }).then((value) => {
             next.answers = value;
-            if (needQuestions && next.questions === undefined) {
-              report(
-                PIPELINE_STAGES.extractingQuestions,
-                `Detected ${value.answers.length} answers. Still detecting questions on ${pagesLabel(questionPageCount)}…`,
-              );
-            }
+            answerPageProgress = `Extracted ${countLabel(value.answers.length, "answer", "answers")}.`;
+            publishExtract();
             return value;
           })
         : Promise.resolve(next.answers);

@@ -76,6 +76,7 @@ export function ResultsScreen({
             pageIndex={interaction.pageIndex}
             onPageIndexChange={interaction.setPageIndex}
             selection={interaction.viewerSelection}
+            sheetHighlights={interaction.sheetHighlights}
           />
         </div>
       </div>

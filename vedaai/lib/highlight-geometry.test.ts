@@ -6,6 +6,7 @@ import {
   highlightTagForUnmatched,
   otherRegionPages,
   pixelBoxesForPage,
+  pixelBoxesForSheetPage,
   regionsOnPage,
   scaleNormalizedBox,
 } from "./highlight-geometry";
@@ -85,5 +86,39 @@ describe("highlight tags", () => {
       highlightTagForUnmatched({ ...unlabeled, detectedQuestionNumber: "  " }),
       "Q?",
     );
+  });
+});
+
+describe("sheet page overlays", () => {
+  it("keeps every answer box on the page", () => {
+    const highlights = [
+      {
+        answer: {
+          id: "a1",
+          detectedQuestionNumber: "1",
+          text: "one",
+          regions: [{ page: 1, x: 0.1, y: 0.1, width: 0.2, height: 0.1 }],
+          confidence: 1,
+        },
+        tag: "Q1",
+        tone: "success" as const,
+      },
+      {
+        answer: {
+          id: "a2",
+          detectedQuestionNumber: "2",
+          text: "two",
+          regions: [{ page: 1, x: 0.1, y: 0.4, width: 0.2, height: 0.1 }],
+          confidence: 1,
+        },
+        tag: "Q2",
+        tone: "error" as const,
+        emphasized: true,
+      },
+    ];
+    const boxes = pixelBoxesForSheetPage(highlights, 1, 100, 100, 100, 100);
+    assert.equal(boxes.length, 2);
+    assert.equal(boxes[0].tag, "Q1");
+    assert.equal(boxes[1].emphasized, true);
   });
 });

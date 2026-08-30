@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  PIPELINE_STAGES,
   runExtractPipeline,
   type MappingSession,
   type PipelineCache,
+  type PipelineStage,
 } from "../lib/pipeline";
 import type { SelectedUpload } from "../lib/upload-file";
 import { buildExtractEmptyDemoSession, buildResultsDemoSession } from "../lib/results-demo-session";
@@ -20,6 +22,9 @@ type View = "upload" | "processing" | "results";
 export function ExamUploadPage() {
   const [view, setView] = useState<View>("upload");
   const [collapsed, setCollapsed] = useState(false);
+  const [progressStage, setProgressStage] = useState<PipelineStage>(
+    PIPELINE_STAGES.reading,
+  );
   const [progressMessage, setProgressMessage] = useState(
     "Opening your files…",
   );
@@ -47,7 +52,8 @@ export function ExamUploadPage() {
     if (demo === "processing") {
       setView("processing");
       setCollapsed(true);
-      setProgressMessage("Detecting questions on 2 pages…");
+      setProgressStage(PIPELINE_STAGES.extractingBoth);
+      setProgressMessage("Extracting questions on 2 pages and answers on 2 pages…");
       return;
     }
     if (demo === "results") {
@@ -86,6 +92,8 @@ export function ExamUploadPage() {
     setError(null);
     setView("processing");
     setCollapsed(true);
+    setProgressStage(PIPELINE_STAGES.reading);
+    setProgressMessage("Opening your files…");
 
     const result = await runExtractPipeline(
       files.questionPaper,
@@ -93,6 +101,7 @@ export function ExamUploadPage() {
       cacheRef.current,
       (progress) => {
         if (runIdRef.current !== runId) return;
+        setProgressStage(progress.stage);
         setProgressMessage(progress.message);
       },
     );
@@ -173,6 +182,7 @@ export function ExamUploadPage() {
           ) : null}
           {view === "processing" ? (
             <ProcessingScreen
+              stage={progressStage}
               message={progressMessage}
               error={error}
               onRetry={retry}

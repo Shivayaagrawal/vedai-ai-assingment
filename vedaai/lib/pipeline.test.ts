@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { ExtractRequestError } from "./extract-client";
-import { PIPELINE_STAGES, runExtractPipeline } from "./pipeline";
+import { PIPELINE_STAGES, pipelineHeading, runExtractPipeline } from "./pipeline";
 import type { Answer, ExtractPageInput, Question } from "./types";
 import type { SelectedUpload } from "./upload-file";
 
@@ -33,6 +33,14 @@ const answer: Answer = {
   regions: [{ page: 1, x: 0.1, y: 0.1, width: 0.4, height: 0.1 }],
   confidence: 0.9,
 };
+
+describe("pipelineHeading", () => {
+  it("names the current stage for the processing title", () => {
+    assert.equal(pipelineHeading(PIPELINE_STAGES.reading), "Scanning...");
+    assert.equal(pipelineHeading(PIPELINE_STAGES.extractingBoth), "Extracting...");
+    assert.equal(pipelineHeading(PIPELINE_STAGES.mapping), "Mapping...");
+  });
+});
 
 describe("runExtractPipeline", () => {
   it("skips pdf conversion for image uploads", async () => {
@@ -128,17 +136,25 @@ describe("runExtractPipeline", () => {
           onPage?.(2, 2);
           return [page, { ...page, pageNumber: 2 }];
         },
-        extractQuestions: async () => ({ questions: [question], warnings: [] }),
-        extractAnswers: async () => ({ answers: [answer], warnings: [] }),
+        extractQuestions: async (pages, onPage) => {
+          onPage?.(1, pages?.length ?? 2);
+          return { questions: [question], warnings: [] };
+        },
+        extractAnswers: async (pages, onPage) => {
+          onPage?.(1, pages?.length ?? 2);
+          return { answers: [answer], warnings: [] };
+        },
       },
     );
     assert.ok(messages.some((line) => /question paper — page 1 of 2/.test(line)));
     assert.ok(messages.some((line) => /answer sheet — page/.test(line)));
     assert.ok(
       messages.some((line) =>
-        /Detecting questions on 2 pages and answers on 2 pages/.test(line),
+        /Extracting questions on 2 pages and answers on 2 pages/.test(line),
       ),
     );
+    assert.ok(messages.some((line) => /Extracting questions — page 1/.test(line)));
+    assert.ok(messages.some((line) => /Extracting answers — page 1/.test(line)));
     assert.ok(
       messages.some((line) => /Matching 1 answer to 1 question/.test(line)),
     );

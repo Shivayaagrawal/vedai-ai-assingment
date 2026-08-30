@@ -8,11 +8,11 @@ import {
 } from "react";
 import {
   otherRegionPages,
-  pixelBoxesForPage,
+  pixelBoxesForSheetPage,
   type PixelBox,
+  type SheetHighlight,
 } from "../lib/highlight-geometry";
 import type { Answer } from "../lib/types";
-import type { HighlightTone } from "../lib/highlight-geometry";
 import { HighlightOverlay } from "./HighlightOverlay";
 
 const ZOOM_STEP = 0.25;
@@ -30,6 +30,7 @@ type AnswerSheetViewerProps = {
   pageIndex: number;
   onPageIndexChange: (index: number) => void;
   selection: ViewerSelection;
+  sheetHighlights: SheetHighlight[];
 };
 
 type DisplayMetrics = {
@@ -51,6 +52,7 @@ export function AnswerSheetViewer({
   pageIndex,
   onPageIndexChange,
   selection,
+  sheetHighlights,
 }: AnswerSheetViewerProps) {
   const [zoom, setZoom] = useState(1);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -91,22 +93,15 @@ export function AnswerSheetViewer({
 
   const unanswered = selection?.kind === "unanswered";
   const answer = selection?.kind === "answer" ? selection.answer : null;
-  const tag = selection?.kind === "answer" ? selection.tag : "";
-  const tone = selection?.kind === "answer" ? selection.tone : undefined;
 
-  const boxes: PixelBox[] =
-    answer && !unanswered
-      ? pixelBoxesForPage(
-          answer.regions,
-          pageNumber,
-          tag,
-          metrics.naturalWidth,
-          metrics.naturalHeight,
-          metrics.displayedWidth,
-          metrics.displayedHeight,
-          tone,
-        )
-      : [];
+  const boxes: PixelBox[] = pixelBoxesForSheetPage(
+    sheetHighlights,
+    pageNumber,
+    metrics.naturalWidth,
+    metrics.naturalHeight,
+    metrics.displayedWidth,
+    metrics.displayedHeight,
+  );
 
   const continuation = answer
     ? continuesLabel(otherRegionPages(answer.regions, pageNumber))

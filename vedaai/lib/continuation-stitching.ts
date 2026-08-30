@@ -1,4 +1,4 @@
-import { questionIdFromParts } from "./gemini";
+import { questionIdFromParts } from "./question-id";
 import { normalizeNumber } from "./matching";
 import type { Answer, Question } from "./types";
 

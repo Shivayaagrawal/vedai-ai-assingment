@@ -2,13 +2,17 @@
 
 import { Sparkles } from "lucide-react";
 
+import { pipelineHeading, type PipelineStage } from "../lib/pipeline";
+
 type ProcessingScreenProps = {
+  stage: PipelineStage;
   message: string;
   error: { rateLimited: boolean; message: string } | null;
   onRetry: () => void;
 };
 
 export function ProcessingScreen({
+  stage,
   message,
   error,
   onRetry,
@@ -52,8 +56,8 @@ export function ProcessingScreen({
               className="sparkle-breathe sparkle-breathe-delay-2 absolute bottom-2 left-2 text-primary"
             />
           </div>
-          <h1 className="mt-6 text-center text-page-title text-ink">
-            Extracting...
+          <h1 className="mt-6 text-center text-page-title text-ink" aria-live="polite">
+            {pipelineHeading(stage)}
           </h1>
           <p
             className="mt-3 max-w-lg text-center text-body-small text-muted"

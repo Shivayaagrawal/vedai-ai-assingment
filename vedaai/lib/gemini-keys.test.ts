@@ -26,6 +26,17 @@ describe("listGeminiApiKeys", () => {
     );
   });
 
+  it("reads Vercel vedaa_0 / vedaa1 aliases", () => {
+    assert.deepEqual(
+      listGeminiApiKeys({
+        vedaa_0: " first ",
+        vedaa1: "second",
+        vedaa_2: "third",
+      }),
+      ["first", "second", "third"],
+    );
+  });
+
   it("throws when none are set", () => {
     assert.throws(() => requireGeminiApiKeys({}), /GEMINI_API_KEY is not set/);
   });
